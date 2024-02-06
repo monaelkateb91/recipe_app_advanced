@@ -16,8 +16,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  StreamSubscription<User?>? _listner;
-  @override
+  StreamSubscription<User?>? _listner; //listen is of  StreamSubscription type ,so we assigned the listen to a variable
+  @override                           // the listener is opened to check the authstatechanges in the splash
+                                      // after the splash the listener should be closed to avoid any errors in the context
   void initState() {
     initSplash();
     super.initState();
@@ -37,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
-  void dispose() {
+  void dispose() { //close the listner
     _listner?.cancel();
     super.dispose();
   }
