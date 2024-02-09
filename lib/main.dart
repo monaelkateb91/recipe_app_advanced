@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app_advanced/pages/splash_screen.dart';
 import 'package:recipe_app_advanced/providers/ads.provider.dart';
 import 'package:recipe_app_advanced/providers/auth.provider.dart';
+import 'package:recipe_app_advanced/providers/ingredients.provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_it/get_it.dart';
 
@@ -26,7 +27,7 @@ void main() async {
   }
   runApp(MultiProvider(
     providers: [ChangeNotifierProvider(create: (_) => AuthProvider()),
-    ChangeNotifierProvider(create: (_)=>AdsProvider())],
+    ChangeNotifierProvider(create: (_)=>AdsProvider()),ChangeNotifierProvider(create: (_)=>IngredientsProvider())],
     child: const MyApp(),
   ));
 }
