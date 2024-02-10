@@ -7,9 +7,9 @@ import 'package:recipe_app_advanced/pages/splash_screen.dart';
 import 'package:recipe_app_advanced/providers/ads.provider.dart';
 import 'package:recipe_app_advanced/providers/auth.provider.dart';
 import 'package:recipe_app_advanced/providers/ingredients.provider.dart';
+import 'package:recipe_app_advanced/providers/recipes.provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_it/get_it.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +26,12 @@ void main() async {
     print('-----$e-----');
   }
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => AuthProvider()),
-    ChangeNotifierProvider(create: (_)=>AdsProvider()),ChangeNotifierProvider(create: (_)=>IngredientsProvider())],
+    providers: [
+      ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ChangeNotifierProvider(create: (_) => AdsProvider()),
+      ChangeNotifierProvider(create: (_) => IngredientsProvider()),
+      ChangeNotifierProvider(create: (_)=> RecipesProvider())
+    ],
     child: const MyApp(),
   ));
 }
@@ -55,9 +59,9 @@ class _MyAppState extends State<MyApp> {
             seedColor: const Color(0xfff45b00),
             primary: const Color(0xfff45b00),
             secondary: const Color(0xfff45b00),
-
-          ),useMaterial3: true),
-          home: const SplashScreen(),
+          ),
+          useMaterial3: true),
+      home: const SplashScreen(),
     ));
   }
 }
