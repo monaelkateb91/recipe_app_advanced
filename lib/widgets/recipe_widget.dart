@@ -3,6 +3,7 @@ import 'package:recipe_app_advanced/model/recipes.model.dart';
 import 'package:recipe_app_advanced/providers/recipes.provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../pages/recipe_details.dart';
 import '../utils/colors.dart';
 import '../utils/numbers.dart';
 import 'package:provider/provider.dart';
@@ -20,17 +21,17 @@ class _RecipeWidgetState extends State<RecipeWidget> {
   Widget build(BuildContext context) {
     return Padding(
       padding:
-       EdgeInsets.symmetric(horizontal: Numbers.appHorizontalPadding),
+       EdgeInsets.symmetric(vertical: Numbers.appHorizontalPadding),
       child: Stack(
         children: [
           InkWell(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (_) => RecipeDetailsPage(
-              //           recipe: widget.recipe!,
-              //         )));
+               Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                     builder: (_) => RecipeDetailsPage(
+                        recipe: widget.recipe!,
+                      )));
             },
             child: Container(
               width: 160,
@@ -160,8 +161,8 @@ class _RecipeWidgetState extends State<RecipeWidget> {
                           FirebaseAuth.instance.currentUser?.uid) ??
                           false));
                 },
-                child: (widget.recipe?.favourite_users_ids?.contains(
-                    FirebaseAuth.instance.currentUser?.uid) ??
+                child: (widget.recipe?.favourite_users_ids?.contains( //the favorites users list inside the recipe model
+                    FirebaseAuth.instance.currentUser?.uid) ??        //if it contains the current user id
                     false
                     ? const Icon(
                   Icons.favorite_border_rounded,

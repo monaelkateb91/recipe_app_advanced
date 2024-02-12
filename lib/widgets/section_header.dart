@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 
 
+import '../pages/all_recipes_page.dart';
 import '../utils/colors.dart';
 import '../utils/numbers.dart';
 class SectionHeader extends StatelessWidget {
@@ -18,14 +19,20 @@ class SectionHeader extends StatelessWidget {
         children: [
           Text(
             sectionName,
-            style: const TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600),
           ),
-          const Text(
-            'See All',
-            style: TextStyle(
-                fontSize: 15,
-                color: Color(ColorsConst.mainColor),
-                fontWeight: FontWeight.w400),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => AllRecipesPage()));
+            }
+            ,child: Text(
+              'See All',
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Color(ColorsConst.mainColor),
+                  fontWeight: FontWeight.w400),
+            ),
           )
         ],
       ),

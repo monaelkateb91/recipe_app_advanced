@@ -12,6 +12,7 @@ import '../providers/recipes.provider.dart';
 import '../utils/numbers.dart';
 import '../widgets/ads_widget.dart';
 import '../widgets/section_header.dart';
+import 'favorites.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,7 +27,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     controller = ZoomDrawerController();
-    Provider.of<RecipesProvider>(context, listen: false).getRecipes();
+    Provider.of<RecipesProvider>(context, listen: false).getFreshRecipes();
+    Provider.of<RecipesProvider>(context, listen: false)
+        .getRecommandedRecipes();
     super.initState();
   }
 
@@ -54,6 +57,17 @@ class _HomePageState extends State<HomePage> {
                   },
                   leading: Icon(Icons.food_bank),
                   title: Text("Ingredients"),
+                ),
+                ListTile(
+                  onTap: () {
+                    controller.close?.call();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const FavouritesPage()));
+                  },
+                  leading: const Icon(Icons.favorite_outlined),
+                  title: const Text('Favourites'),
                 ),
                 ListTile(
                     onTap: () {
@@ -93,21 +107,46 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 300,
                 child: Consumer<RecipesProvider>(
-                  builder: (context, recipeprovider, _) =>
-                      recipeprovider.recipesList == null
-                          ? const CircularProgressIndicator()
-                          : (recipeprovider.recipesList?.isEmpty ?? false)
-                              ? const Text('no data found')
-                              : ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: recipeprovider.recipesList!.length,
-                                  itemBuilder: (context, index) => RecipeWidget(
-                                      recipe:
-                                          recipeprovider.recipesList![index]),
-                                ),
-                ),
-              )
-            ])))));
+                    builder: (ctx, recipesProvider, _) => recipesProvider
+                                .freshRecipesList ==
+                            null
+                        ? const CircularProgressIndicator()
+                        : (recipesProvider.freshRecipesList?.isEmpty ?? false)
+                            ? const Text('No Data Found')
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                    recipesProvider.freshRecipesList!.length,
+                                itemBuilder: (ctx, index) => RecipeWidget(
+                                      recipe: recipesProvider
+                                          .freshRecipesList![index],
+                                    ))),
+              ),
+                      SectionHeader(sectionName: 'Recommended'),
+                      SizedBox(
+                        height: 300,
+                        child: Consumer<RecipesProvider>(
+                            builder: (ctx, recipesProvider, _) => recipesProvider
+                                .recommendedRecipesList ==
+                                null
+                                ? const CircularProgressIndicator()
+                                : (recipesProvider.freshRecipesList?.isEmpty ?? false)
+                                ? const Text('No Data Found')
+                                : ListView.builder(
+                                shrinkWrap: true,
+
+                                scrollDirection: Axis.vertical,
+                                itemCount:
+                                recipesProvider.recommendedRecipesList!.length,
+                                itemBuilder: (ctx, index) => RecipeWidget(
+                                  recipe: recipesProvider
+                                      .recommendedRecipesList![index],
+                                ))),
+                      ),
+            ]))
+            ))
+    )
+    ;
   }
 }
