@@ -11,6 +11,7 @@ class Recipe{
   List<String>? favourite_users_ids;
   num? total_time;
   String? type;
+List<String>? recently_viewd_users_ids;
 
   Recipe();
 
@@ -36,6 +37,11 @@ class Recipe{
     title = data['title'];
     total_time = data['total_time'];
     type = data['type'];
+    recently_viewd_users_ids = data['frecently_viewd_users_ids'] != null
+        ? List<String>.from(
+        data['recently_viewd_users_ids'].map((e) => e.toString()))
+        : null;
+
   }
 
   Map<String, dynamic> toJson() {

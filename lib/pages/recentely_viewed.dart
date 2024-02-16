@@ -6,30 +6,28 @@ import 'package:recipe_app_advanced/model/recipes.model.dart';
 import 'package:recipe_app_advanced/pages/search.dart';
 import 'package:recipe_app_advanced/pages/search.dart';
 
+import 'package:recipe_app_advanced/widgets/recent_card_widged.dart';
 import 'package:recipe_app_advanced/widgets/recipe_widget.dart';
 
-class FavouritesPage extends StatefulWidget {
-  const FavouritesPage({super.key});
+class RecentlyPage extends StatefulWidget {
+  const RecentlyPage({super.key});
 
   @override
-  State<FavouritesPage> createState() => _FavouritesPageState();
+  State<RecentlyPage> createState() => _RecentlyPageState();
 }
 
-class _FavouritesPageState extends State<FavouritesPage> {
+class _RecentlyPageState extends State<RecentlyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar( toolbarHeight: 200,
-        //title:
-           // Text('Favourites page' ),
-
-
-    flexibleSpace: SearchView(), )
-
-      ,body: StreamBuilder(
+        title: Text('Recently viewed'),
+        flexibleSpace: SearchView(),
+      ),
+      body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('recipes')
-              .where("favourite_users_ids",
+              .where('recently_viewd_users_ids',
               arrayContains: FirebaseAuth.instance.currentUser!.uid)
               .snapshots(),
           builder: (context, snapshots) {
@@ -46,7 +44,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                       [];
                   return FlexibleGridView(
                     children: recipesList
-                        .map((e) => RecipeWidget(recipe: e))
+                        .map((e) => RecentlyCard(recipe: e))
                         .toList(),
                     axisCount: GridLayoutEnum.twoElementsInRow,
                     crossAxisSpacing: 8,

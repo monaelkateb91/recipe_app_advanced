@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_app_advanced/model/recipes.model.dart';
+import 'package:recipe_app_advanced/pages/all_recipes_page.dart';
+import 'package:recipe_app_advanced/pages/filter_page.dart';
 import 'package:recipe_app_advanced/pages/ingredients_page.dart';
+import 'package:recipe_app_advanced/pages/recentely_viewed.dart';
 import 'package:recipe_app_advanced/providers/auth.provider.dart';
 import 'package:recipe_app_advanced/widgets/recipe_widget.dart';
 
@@ -64,10 +67,43 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
+                            builder: (_) => const RecentlyPage()));
+                  },
+                  leading: const Icon(Icons.timeline),
+                  title: const Text('Recentely viewed'),
+                ),
+                ListTile(
+                  onTap: () {
+                    controller.close?.call();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
                             builder: (_) => const FavouritesPage()));
                   },
                   leading: const Icon(Icons.favorite_outlined),
                   title: const Text('Favourites'),
+                ),
+                ListTile(
+                  onTap: () {
+                    controller.close?.call();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const AllRecipesPage()));
+                  },
+                  leading: const Icon(Icons.emoji_food_beverage),
+                  title: const Text('All recipes'),
+                ),
+                ListTile(
+                  onTap: () {
+                    controller.close?.call();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const FilterPage()));
+                  },
+                  leading: const Icon(Icons.filter),
+                  title: const Text('Filter'),
                 ),
                 ListTile(
                     onTap: () {
@@ -91,12 +127,21 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Icon(Icons.menu)),
               ),
+
+
+
               actions: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Numbers.appHorizontalPadding),
-                  child: Icon(Icons.notifications),
-                )
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Numbers.appHorizontalPadding),
+                    child: IconButton(
+                        icon: Icon(Icons.filter),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FilterPage()));
+                        }))
               ],
             ),
             body: SafeArea(
@@ -123,30 +168,26 @@ class _HomePageState extends State<HomePage> {
                                           .freshRecipesList![index],
                                     ))),
               ),
-                      SectionHeader(sectionName: 'Recommended'),
-                      SizedBox(
-                        height: 300,
-                        child: Consumer<RecipesProvider>(
-                            builder: (ctx, recipesProvider, _) => recipesProvider
-                                .recommendedRecipesList ==
-                                null
-                                ? const CircularProgressIndicator()
-                                : (recipesProvider.freshRecipesList?.isEmpty ?? false)
+              SectionHeader(sectionName: 'Recommended'),
+              SizedBox(
+                height: 300,
+                child: Consumer<RecipesProvider>(
+                    builder: (ctx, recipesProvider, _) =>
+                        recipesProvider.recommendedRecipesList == null
+                            ? const CircularProgressIndicator()
+                            : (recipesProvider.freshRecipesList?.isEmpty ??
+                                    false)
                                 ? const Text('No Data Found')
                                 : ListView.builder(
-                                shrinkWrap: true,
-
-                                scrollDirection: Axis.vertical,
-                                itemCount:
-                                recipesProvider.recommendedRecipesList!.length,
-                                itemBuilder: (ctx, index) => RecipeWidget(
-                                  recipe: recipesProvider
-                                      .recommendedRecipesList![index],
-                                ))),
-                      ),
-            ]))
-            ))
-    )
-    ;
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: recipesProvider
+                                        .recommendedRecipesList!.length,
+                                    itemBuilder: (ctx, index) => RecipeWidget(
+                                          recipe: recipesProvider
+                                              .recommendedRecipesList![index],
+                                        ))),
+              ),
+            ])))));
   }
 }

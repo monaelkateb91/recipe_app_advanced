@@ -5,6 +5,7 @@ import 'package:recipe_app_advanced/providers/auth.provider.dart';
 import 'package:recipe_app_advanced/utils/images.dart';
 
 import '../utils/colors.dart';
+import 'login.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -24,7 +25,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( resizeToAvoidBottomInset: false,
         body: Stack(children: [
       Container(
         decoration: BoxDecoration(
@@ -123,7 +124,13 @@ class _RegisterState extends State<Register> {
                       },
                   child: const Text('Register',style: TextStyle(color: Colors.white),),),
                   const Spacer(flex: 2,),
-                  const Padding(padding: EdgeInsets.only(top:8),child: Text('Login', style: TextStyle(color:Colors.white),),)
+                   Padding(padding: EdgeInsets.only(top:8),child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const Login()));
+                      },child: Text('Login', style: TextStyle(color:Colors.white),)),)
                   
                 ],
 

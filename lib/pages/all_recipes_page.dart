@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flexible_grid_view/flexible_grid_view.dart';
 
 import 'package:provider/provider.dart';
+import 'package:recipe_app_advanced/pages/search.dart';
+import 'package:recipe_app_advanced/pages/search.dart';
+
 import 'package:recipe_app_advanced/providers/recipes.provider.dart';
 import 'package:recipe_app_advanced/widgets/recipe_widget.dart';
 
@@ -23,7 +26,10 @@ class _AllRecipesPageState extends State<AllRecipesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar( toolbarHeight: 200,
+          title: Text("All Recipes"),
+          flexibleSpace: SearchView(),
+        ),
         body: Consumer<RecipesProvider>(
             builder: (ctx, recipesProvider, _) =>
             recipesProvider.recipesList == null

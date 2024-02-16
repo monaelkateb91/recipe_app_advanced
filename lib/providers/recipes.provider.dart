@@ -9,10 +9,11 @@ class RecipesProvider extends ChangeNotifier{
   List<Recipe>? _recipesList;
   List<Recipe>? get recipesList => _recipesList;
   List<Recipe>? _freshRecipesList;
-
+  Recipe? openedRecipe;
   List<Recipe>? get freshRecipesList => _freshRecipesList;
 
   List<Recipe>? _recommendedRecipesList;
+
 
   List<Recipe>? get recommendedRecipesList => _recommendedRecipesList;
   Future<void> getFreshRecipes() async {
@@ -69,22 +70,7 @@ class RecipesProvider extends ChangeNotifier{
       notifyListeners();
     }
   }
-  Future<void> getSelectedRecipe(String recipeId) async {
-    try {
-      var result = await FirebaseFirestore.instance
-          .collection('recipes')
-          .doc(recipeId)
-          .get();
-      if (result.data() != null) {
-       // openedRecipe = Recipe.fromJson(result.data()!, result.id);
-      } else {
-        return;
-      }
-      notifyListeners();
-    } catch (e) {
-      print('>>>>>error in update recipe');
-    }
-  }
+
   void addRecipeToUserRecentlyViewed(String recipeId) async {
     try {
       await FirebaseFirestore.instance
@@ -183,4 +169,52 @@ class RecipesProvider extends ChangeNotifier{
           print('>>>>>error in update recipe');
         }
       }
+
+
+
+  Future<void> getSelectedRecipe(String recipeId) async {
+    try {
+      var result = await FirebaseFirestore.instance
+          .collection('recipes')
+          .doc(recipeId)
+          .get();
+      if (result.data() != null) {
+        openedRecipe = Recipe.fromJson(result.data()!, result.id);
+      } else {
+        return;
+      }
+      notifyListeners();
+    } catch (e) {
+      print('>>>>>error in update recipe');
     }
+    var value = {"type": "breakfast", "serving": 5, "total_time": 20};
+
+    void getFilteredResult() async {
+      var ref = FirebaseFirestore.instance.collection('recipes');
+
+      for (var entry in value.entries) {
+        ref.where(entry.key, isEqualTo: entry.value);
+      }
+
+      var result = await ref.get();
+    }
+  }
+
+
+
+
+
+  // (String query) {
+  //   return FirebaseFirestore.instance
+  //       .collection('recipes').doc.
+  //       .map((recipeList) {
+  //     return recipeList.where((recipe) {
+  //       final title = recipe.title.toLowerCase();
+  //       final description = recipe.description.toLowerCase();
+  //       return title.contains(query.toLowerCase()) || description.contains(query.toLowerCase());
+  //     }).toList();
+  //   });
+  }
+
+
+
