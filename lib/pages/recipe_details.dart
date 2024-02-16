@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app_advanced/model/ingredients.model.dart';
 import 'package:recipe_app_advanced/model/recipes.model.dart';
 import 'package:recipe_app_advanced/providers/recipes.provider.dart';
-import 'package:recipe_app_advanced/widgets/recipe_widget.dart';
+
 
 class RecipeDetailsPage extends StatefulWidget {
   final Recipe recipe; // we send the whole recipe model

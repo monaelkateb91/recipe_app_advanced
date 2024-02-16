@@ -4,7 +4,6 @@ import 'package:flexible_grid_view/flexible_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_app_advanced/model/recipes.model.dart';
 import 'package:recipe_app_advanced/pages/search.dart';
-import 'package:recipe_app_advanced/pages/search.dart';
 
 import 'package:recipe_app_advanced/widgets/recent_card_widged.dart';
 import 'package:recipe_app_advanced/widgets/recipe_widget.dart';

@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../model/recipes.model.dart';
 import 'package:flexible_grid_view/flexible_grid_view.dart';
@@ -22,7 +22,7 @@ class SearchView extends StatefulWidget {
 
 class _MyAppState extends State<SearchView> {
   String name = "";
-
+TextEditingController _searcheditingcontroller=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _MyAppState extends State<SearchView> {
           backgroundColor: Colors.white,
           title: SizedBox(
             height: 40,
-            child: TextField(
+            child: TextField( controller: _searcheditingcontroller,
               onChanged: (value) {
                 setState(() {
                   name= value;
@@ -45,6 +45,7 @@ class _MyAppState extends State<SearchView> {
                   EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                   filled: true,
 
+
                   hintText: 'Search',
                   hintStyle: TextStyle(color: Colors.grey),
                   prefixIcon: Icon(
@@ -55,7 +56,7 @@ class _MyAppState extends State<SearchView> {
           ),
         ),
         body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: FirebaseFirestore.instance.collection('recipes').where('title', isEqualTo: name).snapshots(),
+          stream: FirebaseFirestore.instance.collection('recipes').where('title', isEqualTo: name,arrayContains: FirebaseAuth.instance.currentUser!.uid).snapshots(),
 
     builder: (context, snapshots) {
     if (snapshots.connectionState == ConnectionState.waiting) {
@@ -69,6 +70,11 @@ class _MyAppState extends State<SearchView> {
         .map((e) => Recipe.fromJson(e.data(), e.id))
         .toList() ??
     [];
+
+
+
+
+
     return FlexibleGridView(
     children: recipesList
         .map((e) => RecipeWidget(recipe: e))
@@ -85,3 +91,5 @@ class _MyAppState extends State<SearchView> {
     }),);
   }
 }
+
+

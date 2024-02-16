@@ -6,8 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:recipe_app_advanced/model/recipes.model.dart';
 import 'package:recipe_app_advanced/pages/all_recipes_page.dart';
 import 'package:recipe_app_advanced/pages/filter_page.dart';
+import 'package:recipe_app_advanced/pages/image.dart';
 import 'package:recipe_app_advanced/pages/ingredients_page.dart';
 import 'package:recipe_app_advanced/pages/recentely_viewed.dart';
+import 'package:recipe_app_advanced/pages/settings.dart';
 import 'package:recipe_app_advanced/providers/auth.provider.dart';
 import 'package:recipe_app_advanced/widgets/recipe_widget.dart';
 
@@ -61,6 +63,15 @@ class _HomePageState extends State<HomePage> {
                   leading: Icon(Icons.food_bank),
                   title: Text("Ingredients"),
                 ),
+                // ListTile(
+                //   onTap: () {
+                //     controller.close?.call();
+                //     Navigator.push(context,
+                //         MaterialPageRoute(builder: (_) => ProfileSettings()));
+                //   },
+                //   leading: Icon(Icons.settings),
+                //   title: Text("Settings"),
+                // ),
                 ListTile(
                   onTap: () {
                     controller.close?.call();
