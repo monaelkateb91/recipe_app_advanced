@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../providers/recipes.provider.dart';
+import'package:provider/provider.dart';
+
 
 class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
@@ -9,7 +12,13 @@ class FilterPage extends StatefulWidget {
 }
 
 class _FilterPageState extends State<FilterPage> {
+  // @override
+  // void initState() {
+  //   Provider.of<RecipesProvider>(context, listen: false).getFilteredResult();
+  //   super.initState();
+  // }
   var selectedUserValue = {};
+
 
 
   @override
@@ -41,12 +50,12 @@ class _FilterPageState extends State<FilterPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          selectedUserValue['type'] = "launch";
+                          selectedUserValue['type'] = "lunch";
                           setState(() {});
                         },
                         child: Chip(
-                          label: Text('Launch'),
-                          backgroundColor: selectedUserValue['type'] == "launch"
+                          label: Text('Lunch'),
+                          backgroundColor: selectedUserValue['type'] == "lunch"
                               ? Colors.orange
                               : Colors.grey,
                           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -67,13 +76,34 @@ class _FilterPageState extends State<FilterPage> {
                       ),
                     ]),
               ),
-    // Padding(
-    // padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),),
-    //         Slider(min: 1, max:200
-    //           ,  value: selectedUserValue['servings'], onChanged: (){})],
-    //
-    //       ),
+    Padding(
+    padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),),
+            Slider(min: 1, max:200
+              ,  value: selectedUserValue['servings'], onChanged: (double newvalue){
+                  selectedUserValue['servings']=newvalue.round();
+                  setState(() {
 
-    ]));
+                  });
+                }), Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),),
+              Slider(min: 1, max:200
+                  ,  value: selectedUserValue['total_time'], onChanged: (double newvalue){
+                    selectedUserValue['total_time']=newvalue.round();
+                    setState(() {
+
+                    });
+                  }), Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),),
+              Slider(min: 1, max:200
+                  ,  value: selectedUserValue['calories'], onChanged: (double newvalue){
+                    selectedUserValue['calories']=newvalue.round();
+                    setState(() {
+
+                    });
+                  })],
+
+          ),
+
+    );
   }
 }

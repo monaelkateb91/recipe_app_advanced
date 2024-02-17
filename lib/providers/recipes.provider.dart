@@ -197,6 +197,12 @@ class RecipesProvider extends ChangeNotifier{
       }
 
       var result = await ref.get();
+      if (result.docs!= null) {
+      final filterdList = [];
+      } else {
+        return;
+      }
+
     }
   }
 
