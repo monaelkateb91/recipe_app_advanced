@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:recipe_app_advanced/pages/forgot_password.dart';
 import 'package:recipe_app_advanced/pages/register.dart';
 import 'package:recipe_app_advanced/providers/auth.provider.dart';
 
@@ -158,7 +159,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                  ],
+                  SizedBox(width:15),GestureDetector(child:Text('forgot password'),onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ForgotPassword())),)],
                 ),
               ),
             ),

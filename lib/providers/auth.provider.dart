@@ -138,7 +138,9 @@ if (context.mounted){ //if it exists
       OverlayLoadingProgress.stop();
       OverlayToastMessage.show(textMessage: 'General Error $e');
     }
-  }
+
+    }
+
 
 
   void signOut(BuildContext context) async {
